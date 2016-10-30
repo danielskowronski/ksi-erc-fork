@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  comment: 
+  member_id: 
+  tshirt_definition_id: 
+
+two:
+  comment: 
+  member_id: 
+  tshirt_definition_id: 

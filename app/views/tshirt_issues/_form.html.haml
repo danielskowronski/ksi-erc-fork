@@ -1,0 +1,19 @@
+= form_for @tshirt_issue do |f|
+  - if @tshirt_issue.errors.any?
+    #error_explanation
+      %h2= "Nie można zapisać wydania koszulki z powodu następujących błędów:"
+      %ul
+        - @tshirt_issue.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    = f.label :tshirt_definition_id
+    = f.collection_select :tshirt_definition_id, TshirtDefinition.all, :id, :nice_name, { prompt: true }, { class: 'form-control' }
+  .form-group
+    = f.label :member_id
+    = f.collection_select :member_id, Member.all, :id, :full_name, { prompt: true }, { class: 'form-control' }
+  .field
+    = f.label :comment
+    = f.text_field :comment
+  .actions
+    = f.submit 'Save'

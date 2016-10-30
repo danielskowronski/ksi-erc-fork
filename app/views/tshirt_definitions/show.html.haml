@@ -1,0 +1,17 @@
+%p#notice= notice
+
+%p
+  %b Nazwa:
+  = @tshirt_definition.name
+%p
+  %b Data produkcji:
+  = @tshirt_definition.produced
+%p
+  %b Uwagi:
+  = @tshirt_definition.comments
+%p
+  = image_tag(@tshirt_definition.image, height: 400)
+
+= link_to 'Edytuj', edit_tshirt_definition_path(@tshirt_definition)
+\|
+= link_to 'Wstecz', tshirt_definitions_path

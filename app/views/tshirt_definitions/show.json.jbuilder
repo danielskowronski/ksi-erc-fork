@@ -1,0 +1,1 @@
+json.partial! "tshirt_definitions/tshirt_definition", tshirt_definition: @tshirt_definition

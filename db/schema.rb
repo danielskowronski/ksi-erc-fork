@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160123173009) do
+ActiveRecord::Schema.define(version: 20161030111144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pgcrypto"
 
   create_table "authors", force: :cascade do |t|
     t.string   "name"
@@ -119,6 +118,26 @@ ActiveRecord::Schema.define(version: 20160123173009) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "tshirt_definitions", force: :cascade do |t|
+    t.string   "name"
+    t.string   "produced"
+    t.string   "comments"
+    t.string   "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tshirt_issues", force: :cascade do |t|
+    t.string   "comment"
+    t.integer  "member_id"
+    t.integer  "tshirt_definition_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "tshirt_issues", ["member_id"], name: "index_tshirt_issues_on_member_id", using: :btree
+  add_index "tshirt_issues", ["tshirt_definition_id"], name: "index_tshirt_issues_on_tshirt_definition_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",            null: false
     t.string   "crypted_password"
@@ -141,4 +160,6 @@ ActiveRecord::Schema.define(version: 20160123173009) do
   add_foreign_key "memberships", "users", column: "who_signed_up", name: "memberships_who_signed_up_fkey"
   add_foreign_key "memberships_roles", "memberships", name: "memberships_roles_membership_id_fkey"
   add_foreign_key "memberships_roles", "roles", name: "memberships_roles_role_id_fkey"
+  add_foreign_key "tshirt_issues", "members"
+  add_foreign_key "tshirt_issues", "tshirt_definitions"
 end

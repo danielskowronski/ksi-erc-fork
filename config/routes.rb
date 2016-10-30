@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :tshirt_issues
+  resources :tshirt_definitions
   resources :book_keep_records
   resources :book_keep_categories
   resources :book_leases
@@ -28,6 +30,8 @@ Rails.application.routes.draw do
   resources :memberships
 
   get '/authorize', to: 'lock#authorize', as: :authorize
+
+  get '/unused', to: 'pages#unused', as: :unused
 
   root 'pages#index'
 end

@@ -1,0 +1,27 @@
+%h1 Lista definicji koszulek
+
+%table
+  %thead
+    %tr
+      %th Nazwa
+      %th Data produkcji
+      %th Uawagi
+      %th Obrazek
+      %th
+      %th
+      %th
+
+  %tbody
+    - @tshirt_definitions.each do |tshirt_definition|
+      %tr
+        %td= tshirt_definition.name
+        %td= tshirt_definition.produced
+        %td= tshirt_definition.comments
+        %td= image_tag(tshirt_definition.image, height: 200)
+        %td= link_to 'Pokaż', tshirt_definition
+        %td= link_to 'Edytuj', edit_tshirt_definition_path(tshirt_definition)
+        %td= link_to 'Zniszcz', tshirt_definition, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'Nowa definicja koszulki', new_tshirt_definition_path

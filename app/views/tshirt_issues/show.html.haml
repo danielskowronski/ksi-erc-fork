@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Członek:
+  = @tshirt_issue.member.full_name
+%p
+  %b Koszulka:
+  = @tshirt_issue.tshirt_definition.nice_name
+%p
+  %b Komentarz:
+  = @tshirt_issue.comment
+
+= link_to 'Edytuj', edit_tshirt_issue_path(@tshirt_issue)
+\|
+= link_to 'Wstecz', tshirt_issues_path

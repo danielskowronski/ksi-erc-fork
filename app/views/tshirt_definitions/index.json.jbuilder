@@ -1,0 +1,1 @@
+json.array! @tshirt_definitions, partial: 'tshirt_definitions/tshirt_definition', as: :tshirt_definition

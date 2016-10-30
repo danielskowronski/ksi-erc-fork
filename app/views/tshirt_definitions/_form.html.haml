@@ -1,0 +1,22 @@
+= form_for @tshirt_definition do |f|
+  - if @tshirt_definition.errors.any?
+    #error_explanation
+      %h2= "Nie można zapisać roli z powodu następujących błędów:"
+      %ul
+        - @tshirt_definition.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :produced
+    = f.text_field :produced
+  .field
+    = f.label :comments
+    = f.text_field :comments
+  .field
+    = f.label :image
+    = f.text_field :image
+  .actions
+    = f.submit 'Save'

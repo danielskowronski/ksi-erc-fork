@@ -12,13 +12,13 @@
           %li
             = link_to "Def. składek", periods_path
           %li
+            = link_to "Def. koszulek", tshirt_definitions_path
+          %li
             = link_to "Zapisy do koła", memberships_path
           %li
-            = link_to "Księgozbiór", books_path
+            = link_to "Wydawanie koszulek", tshirt_issues_path
           %li
-            = link_to "Wypożyczenia", book_leases_path
-          %li
-            = link_to "Finanse", book_keep_records_path
+            = link_to "Nieużywane", unused_path
         - else
           %li
             = link_to 'Księgozbiór', ksiegozbior_path

@@ -1,0 +1,25 @@
+%h1 Lista rekordów wydania koszulek
+
+%table
+  %thead
+    %tr
+      %th Członek
+      %th Koszulka
+      %th Komentarz
+      %th
+      %th
+      %th
+
+  %tbody
+    - @tshirt_issues.each do |tshirt_issue|
+      %tr
+        %td= tshirt_issue.member.full_name
+        %td= tshirt_issue.tshirt_definition.nice_name
+        %td= tshirt_issue.comment
+        %td= link_to 'Pokaż', tshirt_issue
+        %td= link_to 'Edytuj', edit_tshirt_issue_path(tshirt_issue)
+        %td= link_to 'Zniszcz', tshirt_issue, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'Wydaj koszulkę', new_tshirt_issue_path

@@ -1,0 +1,1 @@
+json.partial! "tshirt_issues/tshirt_issue", tshirt_issue: @tshirt_issue
