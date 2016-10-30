@@ -1,0 +1,39 @@
+%h1
+  Konfiguracja domyślnych parametrów
+
+%form{ :action => "", :method => "post"}
+  %fieldset
+    %ol
+      %li
+        %label{:for => "default_period"} Domyślna składka (zmieniaj co roku!):
+        %select{:name => "default_period"}
+          - @periods.each do |period|
+            - if @default_period==period.id.to_s
+              %option{value: period.id, :selected => "selected"}
+                = period.concat_year_and_info
+            - else
+              %option{value: period.id}
+                = period.concat_year_and_info
+      %li
+        %label{:for => "default_role"} Domyślna rola (coś w stylu "KSI - zwyczajny"):
+        %select{:name => "default_role"}
+          - @roles.each do |role|
+            - if @default_role==role.id.to_s
+              %option{value: role.id, :selected => "selected"}
+                = role.name
+            - else
+              %option{value: role.id}
+                = role.name
+      %li
+        %label{:for => "current_tshirt"} Aktualna koszulka:
+        %select{:name => "current_tshirt"}
+          - @tshirts.each do |tshirt|
+            - if @current_tshirt==tshirt.id.to_s
+              %option{value: tshirt.id, :selected => "selected"}
+                = tshirt.name + " ("+tshirt.produced+")"
+            - else
+              %option{value: tshirt.id}
+                = tshirt.name + " ("+tshirt.produced+")"
+
+    %input{:type => "hidden", :value => form_authenticity_token, :name=> "authenticity_token"}
+    %input{:type => "submit", :value => "Zapisz", :class => "button"}

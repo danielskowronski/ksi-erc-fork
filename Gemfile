@@ -64,3 +64,4 @@ group :production do
   gem 'therubyracer', '~> 0.12.2'
 end
 
+gem "rails-settings-cached"

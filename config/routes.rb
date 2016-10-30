@@ -34,9 +34,13 @@ Rails.application.routes.draw do
   get '/unused', to: 'pages#unused', as: :unused
   get '/advanced', to: 'pages#advanced', as: :advanced
   get '/enroll', to: 'pages#enroll', as: :new_enroll
+  post '/enroll', to: 'pages#enroll', as: :new_enroll_post
   get '/members-admin', to: 'pages#members_admin', as: :new_members
   get '/tshirts-admin', to: 'pages#tshirts_admin', as: :new_tshirts
   get '/definitions', to: 'pages#definitions', as: :new_definitions
+  get '/lock', to: 'pages#lock', as: :new_lock
+  get '/config', to: 'pages#configure', as: :new_config
+  post '/config', to: 'pages#configure', as: :new_config_post
 
   root 'pages#index'
 end

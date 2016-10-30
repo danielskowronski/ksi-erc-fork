@@ -1,0 +1,136 @@
+<h1>Zapisywanie do koła</h1>
+<br />
+
+<style>
+  .formtable td {padding: 5px;}
+  .formtable .left { text-align: right; }
+  .formtable .right { text-align: left; }
+
+  #step2 {
+    font-size: 16px;
+  }
+</style>
+<script>
+  var foundMembers = null;
+  $.get( "/members.json", function( data ) {
+    foundMembers = data;
+  });
+  var foundPeriods = null;
+  $.get( "/periods.json", function( data ) {
+    foundPeriods = data;
+
+    $(function() {
+      $.each( foundPeriods.reverse(), function( index, value ){
+        var selected = "";
+        if (<%= @default_period %>==value.id) selected="selected='selected'";
+        $("#step2_period").append("<option value='"+value.id+"' "+selected+"><strong>"+value.academic_year+"</strong> - "+value.info+" ("+value.fee+"zł)</option>")
+      });
+    });
+  });
+
+  $(function() {
+    $("#step1_name").keydown(onSearchTermChanged);
+    $("#step1_surname").keydown(onSearchTermChanged);
+    $("#step1_email").keydown(onSearchTermChanged);
+  })
+
+  function onSearchTermChanged(){
+    var name = $("#step1_name").val().toLowerCase()
+    var surname = $("#step1_surname").val().toLowerCase()
+    var email = $("#step1_email").val().toLowerCase()
+
+    $("#foundMembersList").html("")
+
+    if (
+      (name.length<3 && surname.length<3 && email.length<3) ||
+      (foundMembers==null)
+    ) {
+     return;
+    }
+
+    $.each( foundMembers, function( index, value ){
+      if (
+        value.name.toLowerCase().indexOf(name)>=0 &&
+        value.surname.toLowerCase().indexOf(surname)>=0 &&
+        value.email.toLowerCase().indexOf(email)>=0
+      ) {
+        $("#foundMembersList").append("<li><a onClick='useExistingMember("+value.id+")'>"+value.name+" "+value.surname+" ("+value.email+")</a></li>")
+      }
+
+    });
+  }
+  function useExistingMember(id){
+    $.each( foundMembers, function( index, value ){
+      if (value.id==id){
+        $("#step1_name").val(value.name)
+        $("#step1_surname").val(value.surname)
+        $("#step1_email").val(value.email)
+      }
+    })
+  }
+  function enroll(){
+    var existing = false; var uid = 0;
+    $.each( foundMembers, function( index, value ){
+      if ($("#step1_email").val()==value.email){
+        existing=true;
+        uid=value.id;
+      }
+    })
+    if (existing) {
+      $("#step3 [name='membership[member_id]']").val(uid)
+      $("#step3 [name='membership[member_attributes][name]']").remove()
+      $("#step3 [name='membership[member_attributes][surname]']").remove()
+      $("#step3 [name='membership[member_attributes][email]']").remove()
+
+    } else {
+      $("#step3 [name='membership[member_id]']").val("")
+      $("#step3 [name='membership[member_attributes][name]']").val($("#step1_name").val())
+      $("#step3 [name='membership[member_attributes][surname]']").val($("#step1_surname").val())
+      $("#step3 [name='membership[member_attributes][email]']").val($("#step1_email").val())
+    }
+    $("#step3 [name='membership[period_id]']").val($("#step2_period").val())
+    $("#step3 [name='membership[fee_paid]']").val($("#step2_fee").is(':checked'))
+  }
+</script>
+<h3>1) Kolejny wpis czy nowy człowiek?</h3>
+<h4>Zacznij wpisywać dane, jeśli system coś znajdzie kliknij w link po prawej, jeśli nie - dokończ uzupełnianie danych.</h4>
+<div class="col-md-6">
+  <form action="none" id="step1">
+    <table class="formtable">
+      <tr><td class="left">Imię</td><td class="right"><input id="step1_name" style="text" width=32 /></td></tr>
+      <tr><td class="left">Nazwisko</td><td class="right"><input id="step1_surname" style="text" width=32 /></td></tr>
+      <tr><td class="left">Email</td><td class="right"><input id="step1_email" style="text" width=32 /></td></tr>
+    </table>
+  </form>
+</div><div class="col-md-6">
+  <strong>Znalezieni istniejący członkowie</strong>:
+  <div id="foundMembersList"></div>
+</div>
+
+<br clear="all" />
+<br clear="all" />
+<h3>2) Wybierz typ składki/rok akademicki</h3>
+<form action="none" id="step2">
+  <input type="checkbox" name="fee" value="fee" id="step2_fee"/>Składka opłacona<br />
+  <select id="step2_period">
+
+  </select>
+</form>
+
+<br clear="all" />
+<br clear="all" />
+<h3>3) <button onClick='enroll()'>Zatwierdź</button></h3>
+<form id="step3" method="post">
+  membership[member_id]:<input type="text" name="membership[member_id]" value="" /><br />
+  membership[member_attributes][name]:<input type="text" name="membership[member_attributes][name]" value="" /><br />
+  membership[member_attributes][surname]:<input type="text" name="membership[member_attributes][surname]" value="" /><br />
+  membership[member_attributes][email]:<input type="text" name="membership[member_attributes][email]" value="" /><br />
+  membership[role_ids][]:<input type="text" name="membership[role_ids][]" value="<%= @default_role %>" /><br />
+  membership[period_id]:<input type="text" name="membership[period_id]" value="" /><br />
+  membership[comment_attributes][text]:<input type="text" name="membership[comment_attributes][text]" value="" /><br />
+  membership[fee_paid]:<input type="text" name="membership[fee_paid]" value="" /><br />
+  <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+
+
+  <button>send</button>
+<form>

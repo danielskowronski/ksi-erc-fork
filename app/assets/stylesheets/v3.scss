@@ -1,7 +1,10 @@
 .v3{
-  body, html{
+  body, html, input, option, select{
     background: #004080;
     color: white;
+  }
+  input, option, button{
+    border: 1px solid silver;
   }
   #navbar {
     background: #001a33;
@@ -17,8 +20,9 @@
   a{
     color: silver !important;
   }
-  a:hover{
+  a:hover, option, button{
     color: #001a33 !important;
     background: silver !important;
   }
+
 }

@@ -2,19 +2,25 @@
   .container
     .container-fluid
       .navbar-brand
-        = link_to image_tag('/assets/logo3.png', height: '48px'), root_path
+        = link_to image_tag('/assets/logo3.png', height: '64px'), root_path
       %ul.nav.navbar-nav
         - if current_user
           %li
-            = link_to "Zapisz do koła", new_enroll_path
+            = link_to raw("Zapisz<br />do koła"), new_enroll_path
           %li
-            = link_to "Członkowie", new_members_path
+            = link_to raw("Wydaj<br />koszulkę"), new_enroll_path
+            //todo
           %li
-            = link_to "Koszulki", new_tshirts_path
+            = link_to raw("Dodaj<br />do zamka"), new_enroll_path
+            //todo
           %li
-            = link_to "Definicje", new_definitions_path
+            = link_to raw("Członkowie<br />(tabelki)"), new_members_path
           %li
-            = link_to "Tryb zaawansowany (Adam)", advanced_path
+            = link_to raw("Definicje<br />(okresy itp.)"), new_definitions_path
+          %li
+            = link_to raw("Konfiguracja<br />&nbsp;"), new_config_path
+          %li
+            = link_to raw("Tryb<br />zaawansowany"), advanced_path
         - else
           %li
             = link_to 'Księgozbiór', ksiegozbior_path
@@ -22,7 +28,6 @@
             = link_to 'Zaloguj (zarzont)', login_path
       - if current_user
         %ul.nav.navbar-nav.pull-right
-          %li.navbar-text
-            = current_user.email
           %li
+            = current_user.email
             = link_to 'Wyloguj', logout_path, method: :delete
