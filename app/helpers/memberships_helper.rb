@@ -16,7 +16,8 @@ module MembershipsHelper
     4 => "czwartek",
     5 => "piątek",
     6 => "sobota",
-    7 => "niedziela"
+    7 => "niedziela",
+    0 => "niedziela"
   }
   def format_dow num
     DOW[num.to_i]

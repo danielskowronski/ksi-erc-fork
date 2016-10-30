@@ -10,6 +10,7 @@
 %p
   %b T-shirt wydany:
   = format_true_false @membership.tshirt
+//TODO: remove above
 
 = link_to 'Edytuj', edit_membership_path(@membership), { class: 'btn btn-default' }
 = link_to 'Wstecz', memberships_path, { class: 'btn btn-default' }

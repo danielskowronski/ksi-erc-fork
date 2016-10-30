@@ -2,17 +2,17 @@
   .container
     .container-fluid
       .navbar-brand
-        = link_to image_tag('http://ksi.ii.uj.edu.pl/wp-content/uploads/2015/06/ksi.png', height: '24px')+"KSI ERC", root_path
+        = link_to image_tag('https://www.ksi.ii.uj.edu.pl/images/sticker.png', height: '24px')+"KSI ERC", root_path
       %ul.nav.navbar-nav
         - if current_user
           %li
             = link_to "Członkowie", members_path
           %li
-            = link_to "Role", roles_path
+            = link_to "Def. ról", roles_path
           %li
-            = link_to "Okresy członkostwa", periods_path
+            = link_to "Def. składek", periods_path
           %li
-            = link_to "Członkostwa", memberships_path
+            = link_to "Zapisy do koła", memberships_path
           %li
             = link_to "Księgozbiór", books_path
           %li
@@ -29,4 +29,4 @@
           %li.navbar-text
             = current_user.email
           %li
-            = link_to 'Wyloguj', logout_path, method: :delete  
+            = link_to 'Wyloguj', logout_path, method: :delete

@@ -1,7 +1,7 @@
 = simple_form_for @membership do |f|
   - if @membership.errors.any?
     #error_explanation
-      %h2= "Nie można zapisać członkostwa z powodu następujących błędów:"
+      %h2= "Nie można zapisać członkostwa (człowieka na rok akademicki) z powodu następujących błędów:"
       %ul
         - @membership.errors.full_messages.each do |msg|
           %li= msg
@@ -11,8 +11,8 @@
     //= f.collection_select :member_id, Member.all, :id, :full_name, { prompt: true }, { class: 'form-control' }
     #member
       #member_from_list
-        = f.association :member, :collection => Member.order(:surname), label_method: :full_name, :prompt => 'Wybierz istniejącego członla'
-      = link_to_add_association 'Od razu dodaj nowego członka', f, :member
+        = f.association :member, :collection => Member.order(:surname), label_method: :full_name, :prompt => 'Wybierz istniejącego członka (człowieka z mailem)'
+      = link_to_add_association 'Od razu dodaj nowego członka (człowieka z mailem)', f, :member
   .form-group
     = f.label :roles, nil, { style: 'display: block' }
     - Role.all.each do |role|

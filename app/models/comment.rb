@@ -9,6 +9,8 @@
 #  membership_id :integer
 #
 
+# TODO: ?!?!?!?!?!??!?!?
+
 class Comment < ActiveRecord::Base
   belongs_to :membership
 end

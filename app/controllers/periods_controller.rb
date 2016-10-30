@@ -28,7 +28,7 @@ class PeriodsController < ApplicationController
 
     respond_to do |format|
       if @period.save
-        format.html { redirect_to @period, notice: 'Okres członkostwa pomyślnie dodany.' }
+        format.html { redirect_to @period, notice: 'Definicja składki pomyślnie dodana.' }
         format.json { render :show, status: :created, location: @period }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class PeriodsController < ApplicationController
   def update
     respond_to do |format|
       if @period.update(period_params)
-        format.html { redirect_to @period, notice: 'Okres członkostwa pomyślnie zmieniony.' }
+        format.html { redirect_to @period, notice: 'Definicja składki pomyślnie zmieniona.' }
         format.json { render :show, status: :ok, location: @period }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class PeriodsController < ApplicationController
   def destroy
     @period.destroy
     respond_to do |format|
-      format.html { redirect_to periods_url, notice: 'Okres członkostwa pomyślnie zniszczony.' }
+      format.html { redirect_to periods_url, notice: 'Definicja składki pomyślnie zniszczona.' }
       format.json { head :no_content }
     end
   end

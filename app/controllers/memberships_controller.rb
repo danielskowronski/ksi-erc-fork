@@ -8,18 +8,19 @@ class MembershipsController < ApplicationController
   end
 
   # GET /memberships-stats
+  # TODO: do we really need that? also remove view
   def stats
     @lista = ActiveRecord::Base.connection.execute("select * from registration_dow_statistics").values
     #debugger
   end
-  
+
   # GET /memberships/filter/1/true
   def show_filtered
     @id  = params[:id]
     @academic_year = Period.where(id: @id).first.academic_year
     #debugger
     #@memberships = Membership.where(period: { academic_year: @academic_year }).all
-    
+
     @memberships = Membership.includes(:period).where('periods.academic_year = ?', @academic_year).references(:periods).all
     #debugger
     if params[:exportable]
@@ -55,9 +56,9 @@ class MembershipsController < ApplicationController
 
     if @membership.fee_paid
       if BookKeepCategory.where(name: "składki").count==0
-        n = 'Członkostwo członka pomyślnie dodane. Gdyby istniała kategoria rekordów finansowych "składki" składka zostałaby dodana automatycznie.'
+        n = 'Członek pomyślnie zapisany. Gdyby istniała kategoria rekordów finansowych "składki" składka zostałaby dodana automatycznie.'
       else
-        n = 'Członkostwo członka pomyślnie dodane. Rekord składki został dodany do finansów'
+        n = 'Członek pomyślnie zapisany. Rekord składki został dodany do finansów'
         cat = BookKeepCategory.where(name: "składki").first
         bkr = BookKeepRecord.new
         bkr.date = DateTime.now
@@ -68,7 +69,7 @@ class MembershipsController < ApplicationController
         bkr.save
       end
     else
-      n = 'Członkostwo członka (bez składki) pomyślnie dodane.'
+      n = 'Członek pomyślnie zapisany (bez składki)'
     end
 
     respond_to do |format|
@@ -87,7 +88,7 @@ class MembershipsController < ApplicationController
   def update
     respond_to do |format|
       if @membership.update(membership_params)
-        format.html { redirect_to @membership, notice: 'Członkostwo członka pomyślnie zmienione.' }
+        format.html { redirect_to @membership, notice: 'Dane o zapisie pomyślnie zmienione.' }
         format.json { render :show, status: :ok, location: @membership }
       else
         format.html { render :edit }
@@ -101,7 +102,7 @@ class MembershipsController < ApplicationController
   def destroy
     @membership.destroy
     respond_to do |format|
-      format.html { redirect_to memberships_url, notice: 'Członkostwo członka pomyślnie zniszczone.' }
+      format.html { redirect_to memberships_url, notice: 'Dane o zapisie pomyślnie zniszczone.' }
       format.json { head :no_content }
     end
   end

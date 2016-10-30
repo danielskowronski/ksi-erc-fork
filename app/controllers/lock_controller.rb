@@ -8,6 +8,7 @@ class LockController < ApplicationController
       File.open('tmp/last_card_id.txt', 'w') do |f|
         f.puts card_id
       end
+      # TODO: current AY, fee paid
       @member = Member.where("card_id = ?", card_id)
       if @member.any?
         return head :ok

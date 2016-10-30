@@ -1,5 +1,5 @@
 = link_to 'Nowy okres', new_period_path, class: "btn btn-default pull-right"
-%h1 Lista okresów członkostwa
+%h1 Lista definicji składek (okresów członkostwa)
 
 %table.table.table-striped#periods
   %thead
@@ -22,4 +22,3 @@
         %td= link_to 'Pokaż', period, class: "btn btn-default"
         %td= link_to 'Edytuj', edit_period_path(period), class: "btn btn-default"
         %td= link_to 'Usuń', period, :method => :delete, :data => { :confirm => 'Na pewno?' }, class: "btn btn-default"
-

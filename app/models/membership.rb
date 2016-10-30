@@ -19,14 +19,14 @@ class Membership < ActiveRecord::Base
 
   belongs_to :member
   accepts_nested_attributes_for :member
-  
+
   belongs_to :period
   has_one :comment
   has_and_belongs_to_many :roles
   accepts_nested_attributes_for :comment, allow_destroy: true
   belongs_to :user, foreign_key: 'who_signed_up'
 
-  validates :member_id, uniqueness: { scope: :period_id, :message =>  ' jest już powiązany z tym okresem członkostwa!' }
+  validates :member_id, uniqueness: { scope: :period_id, :message =>  ' już opłacił składkę na ten okres!' }
 
   private
 

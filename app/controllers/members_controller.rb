@@ -30,6 +30,7 @@ class MembersController < ApplicationController
 
   # GET /members/1/edit
   def edit
+    # TODO: something better??
     File.open('tmp/last_card_id.txt', 'r') do |f|
       @last_card_id = f.gets
     end
@@ -71,7 +72,7 @@ class MembersController < ApplicationController
     @memberhips = Membership.where(member: @member)
     if @memberhips.count>0
       respond_to do |format|
-        format.html { 
+        format.html {
           flash[:error] = "Członek posiada instniejące członkostwa - nie można naruszyć integralności bazy danych! Najpierw usuń wszystkie powiązane członkostwa."
           redirect_to members_url
         }

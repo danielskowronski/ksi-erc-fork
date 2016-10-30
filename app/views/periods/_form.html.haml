@@ -1,7 +1,7 @@
 = form_for @period do |f|
   - if @period.errors.any?
     #error_explanation
-      %h2= "Nie można zapisać okresu z powodu następujących błędów:"
+      %h2= "Nie można zapisać definicji składki (okresu członkostwa) z powodu następujących błędów:"
       %ul
         - @period.errors.full_messages.each do |msg|
           %li= msg
