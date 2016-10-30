@@ -32,6 +32,11 @@ Rails.application.routes.draw do
   get '/authorize', to: 'lock#authorize', as: :authorize
 
   get '/unused', to: 'pages#unused', as: :unused
+  get '/advanced', to: 'pages#advanced', as: :advanced
+  get '/enroll', to: 'pages#enroll', as: :new_enroll
+  get '/members-admin', to: 'pages#members_admin', as: :new_members
+  get '/tshirts-admin', to: 'pages#tshirts_admin', as: :new_tshirts
+  get '/definitions', to: 'pages#definitions', as: :new_definitions
 
   root 'pages#index'
 end
