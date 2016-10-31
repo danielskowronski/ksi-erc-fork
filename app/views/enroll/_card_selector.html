@@ -1,0 +1,26 @@
+<script>
+var selected_uid = -1;
+function useExistingMember(id){
+  $.each( foundMembers, function( index, value ){
+    if (value.id==id){
+      $("#selected").html(value.name+" "+value.surname+" ("+value.email+")");
+      selected_uid = value.id;
+      updateLock(value.id);
+    }
+  })
+}
+function updateLock(id){
+
+  $("#step3 [name='member[id]']").val(selected_uid)
+  $("#step3 [name='member[card_id]']").val($("#lastCard").html().replace(/\s/g, ''))
+
+}
+</script>
+<form method="post" id="step3" style="display:none">
+  member[id]:<input type="text" name="member[id]" value="" /><br />
+  member[card_id]:<input type="text" name="member[card_id]" value="" /><br />
+  <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+
+  <button>send</button>
+
+</form>

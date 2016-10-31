@@ -44,6 +44,27 @@ class EnrollController < ApplicationController
   end
 
   def lock
+    File.open('tmp/last_card_id.txt', 'r') do |f|
+      @last_card_id = f.gets.strip
+    end
+
+    @count = Member.where(:card_id=>@last_card_id).count
+    if @count>0
+      @card_err=true
+    else
+      @card_err=false
+    end
+
+    if request.post?
+      member_id = params[:member][:id]
+      @success = Member.update(member_id, :card_id=> params[:member][:card_id])
+      errors = @success.errors
+      @message = ""
+      errors.full_messages.each do |msg|
+        @message+="<li>"+msg+"</li>"
+      end
+      @success = @success.errors.messages.empty?
+    end
   end
 
 

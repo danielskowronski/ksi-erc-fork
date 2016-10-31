@@ -1,0 +1,25 @@
+-if !@success.nil?
+  -if !@success
+    =raw("<div class='alert alert-danger'><strong>Wystąpił co najmniej jeden błąd!</strong><br />"+@message+"</div>")
+-if !@card_err.nil?
+  -if @card_err
+    =raw("<div class='alert alert-danger'><h3>Ostatnio zczytany ID karty jest już przypisany!<br />Odśwież stronę i spróbuj ponownie.</h3></div>")
+
+%h1
+  Dodaj do zamka
+
+%h3
+  1) Wybierz członka
+  %kbd#selected
+= render 'selector'
+
+%h3
+  2) Ostatnio zczytany ID karty:
+  %kbd#lastCard
+    =@last_card_id
+= render 'card_selector'
+
+%h3
+  3)
+  %button{onClick: "$('#step3').submit()"}
+    Zatwierdź
