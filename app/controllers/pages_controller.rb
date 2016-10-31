@@ -9,21 +9,40 @@ class PagesController < ApplicationController
     @default_role   = Setting.default_role
     @current_tshirt = Setting.current_tshirt
 
+    #for auto completing form with errors
+    @membership = Membership.new
+    @membership.member = Member.new
+
     if request.post?
       @membership = Membership.new(membership_params)
       @membership.user = current_user
-
-      if @membership.save
-        msg = "OK"
-      else
-        msg = "nie OK"
+      @success = @membership.save
+      errors = @membership.errors
+      @message = ""
+      errors.full_messages.each do |msg|
+        @message+="<li>"+msg+"</li>"
       end
+      debugger
     end
 
     render layout: "v3"
   end
 
   def members_admin
+
+    render layout: "v3"
+  end
+
+  def members_admin_show
+    @id = request.path_parameters[:id]
+    @member = Member.find(@id)
+    require 'digest/md5'
+    email_address = @member.email.downcase
+    hash = Digest::MD5.hexdigest(email_address)
+    @picture = "https://www.gravatar.com/avatar/#{hash}"
+    @member_periods = Membership.where(member_id: @id)
+    @member_tshirts = TshirtIssue.where(member_id: @id)
+
     render layout: "v3"
   end
 

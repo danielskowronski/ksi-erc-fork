@@ -1,2 +1,13 @@
-%h1.center
-  =image_tag  "/assets/banner3.png", :align=> "middle", :height=> "500px", :class=> "banner"
+%h1
+  Centrum linków do definicji
+%h3
+  prowadzą one do trybu zaawansowanego
+%h3
+%ul
+  %li
+    = link_to "Definicje ról, jakie można pełnić w trakcie okresu członkostwa (np. zarząd, admin)", roles_path
+
+  %li
+    = link_to "Definicje okresów członkostwa/składek (np. '2016/2017 składka')", periods_path
+  %li
+    = link_to "Definicje koszulek (bo partia koszulek nie jest tożsama z rokiem akademickim)", tshirt_definitions_path

@@ -1,3 +1,11 @@
+<%=
+if !@success.nil?
+  if !@success
+    raw("<div class='alert alert-danger'><strong>Wystąpił co najmniej jeden błąd!</strong><br />"+@message+"</div>")
+  end
+end
+%>
+
 <h1>Zapisywanie do koła</h1>
 <br />
 
@@ -90,6 +98,8 @@
     }
     $("#step3 [name='membership[period_id]']").val($("#step2_period").val())
     $("#step3 [name='membership[fee_paid]']").val($("#step2_fee").is(':checked'))
+
+    $("#step3").submit()
   }
 </script>
 <h3>1) Kolejny wpis czy nowy człowiek?</h3>
@@ -97,9 +107,9 @@
 <div class="col-md-6">
   <form action="none" id="step1">
     <table class="formtable">
-      <tr><td class="left">Imię</td><td class="right"><input id="step1_name" style="text" width=32 /></td></tr>
-      <tr><td class="left">Nazwisko</td><td class="right"><input id="step1_surname" style="text" width=32 /></td></tr>
-      <tr><td class="left">Email</td><td class="right"><input id="step1_email" style="text" width=32 /></td></tr>
+      <tr><td class="left">Imię</td><td class="right"><input id="step1_name" style="text" width=32 value="<%= @membership.member.name %>"/></td></tr>
+      <tr><td class="left">Nazwisko</td><td class="right"><input id="step1_surname" style="text" width=32 value="<%= @membership.member.surname %>"/></td></tr>
+      <tr><td class="left">Email</td><td class="right"><input id="step1_email" style="text" width=32 value="<%= @membership.member.email %>"/></td></tr>
     </table>
   </form>
 </div><div class="col-md-6">
@@ -120,7 +130,7 @@
 <br clear="all" />
 <br clear="all" />
 <h3>3) <button onClick='enroll()'>Zatwierdź</button></h3>
-<form id="step3" method="post">
+<form id="step3" method="post" style="display:none">
   membership[member_id]:<input type="text" name="membership[member_id]" value="" /><br />
   membership[member_attributes][name]:<input type="text" name="membership[member_attributes][name]" value="" /><br />
   membership[member_attributes][surname]:<input type="text" name="membership[member_attributes][surname]" value="" /><br />

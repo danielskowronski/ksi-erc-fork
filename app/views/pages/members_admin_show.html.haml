@@ -1,0 +1,38 @@
+<style>h1 img{height: 1.25em;}</style>
+%h1
+  = "Podgląd członka - " + @member.full_name(true)
+  =image_tag  @picture
+
+%ul
+  %li
+    = "Email: "
+    %kbd
+      = @member.email
+  %li
+    = "ID do zamka: "
+    %kbd
+      = @member.card_id
+  %li
+    =link_to "[edytuj]", @member
+
+%div.col-md-6
+  %h4 Okresy członkostwa/składki i role
+  %ul
+    - @member_periods.each do |period|
+      %li
+        = period.period.concat_year_and_info
+        = " "
+        =link_to "[edytuj]", period
+        %ul
+          - period.roles.each do |role|
+            %li
+              = role.name
+
+%div.col-md-6
+  %h4 Wydane koszulki
+  %ul
+    - @member_tshirts.each do |tshirt|
+      %li
+        = tshirt.tshirt_definition.name + " ("+tshirt.tshirt_definition.produced+")"
+        = " "
+        =link_to "[edytuj]", tshirt

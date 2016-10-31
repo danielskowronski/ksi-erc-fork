@@ -2,6 +2,7 @@ class SessionsController < ApplicationController
   skip_before_action :require_login, except: [:destroy]
 
   def new
+    render layout: "v3"
   end
 
   def create
@@ -12,6 +13,7 @@ class SessionsController < ApplicationController
       flash.now[:alert] = "Email i/lub hasło są nieprawidłowe."
       render 'new'
     end
+
   end
 
   def destroy
