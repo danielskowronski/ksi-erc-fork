@@ -22,12 +22,22 @@ class EnrollController < ApplicationController
       errors.full_messages.each do |msg|
         @message+="<li>"+msg+"</li>"
       end
-      debugger
     end
 
   end
 
   def fee
+    @default_period = Setting.default_period
+
+    if request.post?
+      membership_id = params[:membership][:id]
+      @success = Membership.update(membership_id, :fee_paid=> true)
+      errors = @success.errors
+      errors.full_messages.each do |msg|
+        @message+="<li>"+msg+"</li>"
+      end
+      @success = @success.errors.messages.empty?
+    end
   end
 
   def tshirt

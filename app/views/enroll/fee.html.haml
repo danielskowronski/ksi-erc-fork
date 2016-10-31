@@ -1,0 +1,21 @@
+-if !@success.nil?
+  -if !@success
+    =raw("<div class='alert alert-danger'><strong>Wystąpił co najmniej jeden błąd!</strong><br />"+@message+"</div>")
+
+%h1
+  Odznacz opłacenie składki
+
+%h3
+  1) Wybierz członka
+  %kbd#selected
+= render 'selector'
+
+%h3
+  2) Wybierz składkę z listy do niego przypisanych
+  %kbd#selectedPeriod
+= render 'period_selector'
+
+%h3
+  3)
+  %button{onClick: "$('#step3').submit()"}
+    Zapisz

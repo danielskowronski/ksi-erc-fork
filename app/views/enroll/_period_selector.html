@@ -1,0 +1,71 @@
+<script>
+var foundPeriods = null;
+$.get( "/periods.json", function( data ) {
+  foundPeriods = data;
+});
+function getPeriodDescById(id){
+  var result = "?!?!?!";
+  $.each( foundPeriods, function( index, value ){
+    if (value.id == id) {
+      result = (value.academic_year+" "+value.info+" ("+value.fee+"zł)");
+      return false;
+    }
+  });
+  return result;
+}
+
+var selected_uid = -1;
+function useExistingMember(id){
+  $.each( foundMembers, function( index, value ){
+    if (value.id==id){
+      $("#selected").html(value.name+" "+value.surname+" ("+value.email+")");
+      selected_uid = value.id;
+      loadMembershipsByUid(value.id);
+    }
+  })
+}
+var foundMemberships;
+function loadMembershipsByUid(uid){
+  $.get( "/memberships/by_user/"+uid+".json", function( data ) {
+    foundMemberships = data;
+    $("#step2").html("")
+    $.each( data, function( index, value ){
+      var feeState = "";
+      if (value.fee_paid) feeState="<span style='color:green'>opłacona</span>";
+      else  feeState="<span style='color:red'>nieopłacona</span>";
+      $("#step2").append("<li><a onClick='useMembership("+value.id+")'>"+getPeriodDescById(value.period_id)+" - ["+feeState+"]</a></li>")
+    })
+  });
+}
+
+function useMembership(id){
+  $("#step3 [name='membership']").val(id)
+  var membership;
+  $.each( foundMemberships, function( index, value ){
+    if (value.id==id) membership=value;
+  });
+
+  $("#step3 [name='membership[id]']").val(id)
+  $("#step3 [name='membership[member_id]']").val(selected_uid)
+  $("#step3 [name='membership[period_id]']").val(membership.period_id)
+  $("#step3 [name='membership[role_ids]']").val(JSON.stringify(membership.role_ids))
+  $("#step3 [name='membership[fee_paid]']").val("1")
+
+  $("#selectedPeriod").html(getPeriodDescById(membership.period_id))
+
+  
+}
+</script>
+<div id="step2"></div>
+<form method="post" id="step3" style="display:none">
+  membership[id]:<input type="text" name="membership[id]" value="" /><br />
+  membership[member_id]:<input type="text" name="membership[member_id]" value="" /><br />
+  membership[role_ids]<input type="text" name="membership[role_ids]" value="" /><br />
+  membership[period_id]:<input type="text" name="membership[period_id]" value="" /><br />
+  membership[comment_attributes][text]:<input type="text" name="membership[comment_attributes][text]" value="" /><br />
+  membership[fee_paid]:<input type="text" name="membership[fee_paid]" value="" /><br />
+  <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+
+  <button>send</button>
+
+</form>

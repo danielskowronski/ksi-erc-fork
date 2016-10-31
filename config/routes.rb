@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   resources :members
   get '/members/generate_mailing', to: 'members#generate_mailing', as: :generate_mailing
   get '/memberships/filter/:id(/:exportable)', to: 'memberships#show_filtered', as: :memberships_show_filtered
+  get '/memberships/by_user/:id', to: 'memberships#by_user', as: :memberships_by_user
   get '/memberships-stats', to: 'memberships#stats', as: :memberships_stats
   resources :members
   resources :roles

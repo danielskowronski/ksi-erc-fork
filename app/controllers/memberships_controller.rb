@@ -15,6 +15,7 @@ class MembershipsController < ApplicationController
   end
 
   # GET /memberships/filter/1/true
+  # TODO: fix this mess
   def show_filtered
     @id  = params[:id]
     @academic_year = Period.where(id: @id).first.academic_year
@@ -35,6 +36,11 @@ class MembershipsController < ApplicationController
   # GET /memberships/1
   # GET /memberships/1.json
   def show
+  end
+
+  # GET /memberships/by_user/1.json
+  def by_user
+    @memberships = Membership.where(member_id: params[:id])
   end
 
   # GET /memberships/new
