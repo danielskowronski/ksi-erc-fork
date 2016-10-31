@@ -10,8 +10,11 @@
       = @member.email
   %li
     = "ID do zamka: "
-    %kbd
-      = @member.card_id
+    -if @member.card_id.nil?
+      =link_to "[dodaj!]", new_enroll_lock_path
+    -else
+      %kbd
+        = @member.card_id
   %li
     =link_to "[edytuj]", @member
 
@@ -21,6 +24,13 @@
     - @member_periods.each do |period|
       %li
         = period.period.concat_year_and_info
+        = " "
+        -if period.fee_paid
+          = raw("<span style='color:green'>opłacona</span>")
+        -else
+          = raw("<span style='color:red'>nieopłacona</span>")
+          = " "
+          =link_to "[przyjmij składkę]", new_enroll_fee_path
         = " "
         =link_to "[edytuj]", period
         %ul

@@ -22,8 +22,11 @@ class EnrollController < ApplicationController
       errors.full_messages.each do |msg|
         @message+="<li>"+msg+"</li>"
       end
-    end
 
+      if @success
+        redirect_to new_members_show_url(@membership.member.id), :flash => { :success => "Pomyślnie zapisano do koła" }
+      end
+    end
   end
 
   def fee
@@ -31,12 +34,16 @@ class EnrollController < ApplicationController
 
     if request.post?
       membership_id = params[:membership][:id]
-      @success = Membership.update(membership_id, :fee_paid=> true)
-      errors = @success.errors
+      @success2 = Membership.update(membership_id, :fee_paid=> true)
+      errors = @success2.errors
       errors.full_messages.each do |msg|
         @message+="<li>"+msg+"</li>"
       end
-      @success = @success.errors.messages.empty?
+      @success = @success2.errors.messages.empty?
+
+      if @success
+        redirect_to new_members_show_url(@success2.member.id), :flash => { :success => "Pomyślnie przyjęto składkę" }
+      end
     end
   end
 
@@ -64,6 +71,10 @@ class EnrollController < ApplicationController
         @message+="<li>"+msg+"</li>"
       end
       @success = @success.errors.messages.empty?
+
+      if @success
+        redirect_to new_members_show_url(member_id), :flash => { :success => "Pomyślnie dodano do zamka elektronicznego"}
+      end
     end
   end
 
