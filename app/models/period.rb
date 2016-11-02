@@ -20,4 +20,12 @@ class Period < ActiveRecord::Base
   def concat_year_and_info
     self.academic_year + ' ' + self.info
   end
+
+  def academic_year_html
+    if self.academic_year==Setting.lock_allowed
+      "<span class='active_year'>"+self.academic_year+"</span>"
+    else
+      self.academic_year
+    end
+  end
 end

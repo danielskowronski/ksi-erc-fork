@@ -19,6 +19,8 @@ class MembersAdminController < ApplicationController
   end
 
   def all
+    @current_year = Setting.lock_allowed
+    @members = Member.joins(:periods).group(:id)
   end
 
   def show

@@ -1,6 +1,4 @@
 .v3{
-
-
   body, html, input, option, select{
     background: #004080;
     color: white;
@@ -27,24 +25,29 @@
     background: silver !important;
   }
 
+  .oplacona, .nieoplacona, .active_year{
+    padding-left: 1px;
+    padding-right: 1px;
+  }
   .oplacona{
     color: #2f2;
   }
   .nieoplacona{
     background: #f66;
-    padding-left: 1px;
-    padding-right: 1px;
-
   }
-
+  .active_year{
+    background: #2b2;
+  }
 
   .strong{
     font-weight: bold;
   }
+
+
   /* datable for dark background hacks */
   table.dataTable {
     tr:hover td{
-      background: #3070b0 !important;
+      background: #4080c0 !important;
     }
     tbody,tr,td,button,.btn,.paginate_button {
       background-color:  #004080 !important;
@@ -59,9 +62,6 @@
     }
   }
   .dataTables_wrapper .dataTables_paginate .paginate_button{
-
-
-
     background-color:  #004080 !important;
     color: white !important  ;
     padding: 3px !important;
@@ -78,7 +78,7 @@
     color:white !important;
   }
   .dataTables_wrapper .dataTables_paginate .paginate_button:hover{
-    color: #004080 !important;
+    color: #4080c0 !important;
     background: white !important;
   }
 

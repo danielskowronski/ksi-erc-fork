@@ -1,0 +1,24 @@
+%h1
+  Wszyscy członkowie od początku ery ERCa
+
+%table.table.table-striped#memberships
+  %thead
+    %tr
+      %th Imię i nazwisko
+      %th Email
+      %th Kadencje
+      %th Zapisany
+      %th
+
+  %tbody
+    - @members.each do |member|
+      %tr
+        %td.strong= member.full_name
+        %td= member.email
+        %td
+          - for membership in member.memberships.sort_by { |membership| membership.period.academic_year }
+            =raw(membership.period.academic_year_html)
+        %td= member.created_at.strftime("%F")
+        %td
+          =link_to 'Pokaż', new_members_admin_show_path(member.id), class: "btn btn-default"
+          = link_to 'Edytuj (advanced)', edit_member_path(member), class: "btn btn-default"

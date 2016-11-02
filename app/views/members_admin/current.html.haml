@@ -9,11 +9,8 @@
       %th Imię i nazwisko
       %th Email
       %th Typ składki
-      //%th Rola
       %th Składka opłacona?
-      //%th Kto zapisał
       %th Kiedy zapisany
-      %th
       %th
 
   %tbody
@@ -22,11 +19,8 @@
         %td.strong= membership.member.full_name
         %td= membership.member.email
         %td= membership.period.info
-        //%td
-        //  - for role in membership.roles.sort_by { |role| role.name.downcase }
-        //    = role.name + ', '
         %td= raw(membership.fee_paid_html)
-        //%td= membership.user.email
         %td= membership.created_at
-        %td= link_to 'Pokaż', new_members_admin_show_path(membership.member.id), class: "btn btn-default"
-        %td= link_to 'Edytuj (advanced)', edit_membership_path(membership), class: "btn btn-default"
+        %td
+          =link_to 'Pokaż', new_members_admin_show_path(membership.member.id), class: "btn btn-default"
+          =link_to 'Edytuj (advanced)', edit_membership_path(membership), class: "btn btn-default"
