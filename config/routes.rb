@@ -69,6 +69,9 @@ Rails.application.routes.draw do
   get '/members-admin/all', to: 'members_admin#all', as: :new_members_admin_all
   get '/members-admin/show/:id', to: 'members_admin#show', as: :new_members_admin_show
 
+  # models
+  resources :lock_logs
+
   ### master
   root 'pages#index'
 end

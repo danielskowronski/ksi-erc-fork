@@ -22,12 +22,15 @@ class LockController < ApplicationController
         end
 
         if @current.any?
+          @lock_log = LockLog.new
+          @lock_log.card_id = card_id
+          @lock_log.save
           return head :ok
         end
 
       end
     end
-    
+
     return head :forbidden
   end
 end

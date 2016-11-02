@@ -1,0 +1,1 @@
+json.array! @lock_logs, partial: 'lock_logs/lock_log', as: :lock_log
