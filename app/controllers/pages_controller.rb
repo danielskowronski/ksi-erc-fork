@@ -42,15 +42,18 @@ class PagesController < ApplicationController
     @default_period = Setting.default_period
     @default_role   = Setting.default_role
     @current_tshirt = Setting.current_tshirt
+    @lock_allowed   = Setting.lock_allowed
 
     if request.post?
       Setting.default_period = params[:default_period]
       Setting.default_role   = params[:default_role]
       Setting.current_tshirt = params[:current_tshirt]
+      Setting.lock_allowed   = params[:lock_allowed]
 
       @default_period = Setting.default_period
       @default_role   = Setting.default_role
       @current_tshirt = Setting.current_tshirt
+      @lock_allowed   = Setting.lock_allowed
     end
 
 

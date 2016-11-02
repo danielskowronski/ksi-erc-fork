@@ -8,12 +8,26 @@ class LockController < ApplicationController
       File.open('tmp/last_card_id.txt', 'w') do |f|
         f.puts card_id
       end
-      # TODO: current AY, fee paid
+
       @member = Member.where("card_id = ?", card_id)
       if @member.any?
-        return head :ok
+        @memebrships = Membership.where(:member_id=>@member.first.id)
+        @current = nil
+
+        if Setting.lock_allowed.empty?
+          @current = @memebrships.where(:fee_paid=>true)
+        else
+          # trust me, this produces nice looking SQL
+          @current = @memebrships.where(:fee_paid=>true).joins(:period).where(periods: {academic_year: Setting.lock_allowed})
+        end
+
+        if @current.any?
+          return head :ok
+        end
+
       end
     end
+    
     return head :forbidden
   end
 end
