@@ -21,12 +21,13 @@ class Member < ActiveRecord::Base
 
   has_many :memberships
   accepts_nested_attributes_for :memberships
-  
+
   has_many :roles, through: :memberships
   has_many :periods, through: :memberships
   has_one :comment
 
   has_many :book_lease
+  has_many :lock_logs, foreign_key: 'card_id'
 
   def full_name(old_order=false)
     if old_order

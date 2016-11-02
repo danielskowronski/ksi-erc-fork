@@ -1,0 +1,20 @@
+%h1 Logi wejścia
+
+%table.table.table-striped#members
+  %thead
+    %tr
+      %th ID
+      %th Card
+      %th User
+      %th Access date
+
+  %tbody
+    - @lock_logs.each do |lock_log|
+      %tr
+        %td= lock_log.id
+        %td
+          %kbd= lock_log.card_id
+        %td
+          = lock_log.member.full_name
+          = "("+lock_log.member.email+")"
+        %td= lock_log.created_at.to_s
