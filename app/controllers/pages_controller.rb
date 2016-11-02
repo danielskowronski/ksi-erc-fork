@@ -3,28 +3,6 @@ class PagesController < ApplicationController
     render layout: "v3"
   end
 
-  def members_admin
-
-    render layout: "v3"
-  end
-
-  def members_admin_show
-    @id = request.path_parameters[:id]
-    @member = Member.find(@id)
-    require 'digest/md5'
-    email_address = @member.email.downcase
-    hash = Digest::MD5.hexdigest(email_address)
-    @picture = "https://www.gravatar.com/avatar/#{hash}"
-    @member_periods = Membership.where(member_id: @id)
-    @member_tshirts = TshirtIssue.where(member_id: @id)
-
-    render layout: "v3"
-  end
-
-  def tshirts_admin
-    render layout: "v3"
-  end
-
   def definitions
     render layout: "v3"
   end
@@ -55,8 +33,6 @@ class PagesController < ApplicationController
       @current_tshirt = Setting.current_tshirt
       @lock_allowed   = Setting.lock_allowed
     end
-
-
 
     render layout: "v3"
   end

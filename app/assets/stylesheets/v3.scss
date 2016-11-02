@@ -1,4 +1,6 @@
 .v3{
+
+
   body, html, input, option, select{
     background: #004080;
     color: white;
@@ -30,7 +32,55 @@
   }
   .nieoplacona{
     background: #f66;
+    padding-left: 1px;
+    padding-right: 1px;
 
   }
 
+
+  .strong{
+    font-weight: bold;
+  }
+  /* datable for dark background hacks */
+  table.dataTable {
+    tr:hover td{
+      background: #3070b0 !important;
+    }
+    tbody,tr,td,button,.btn,.paginate_button {
+      background-color:  #004080 !important;
+      color: white !important  ;
+      padding: 1px !important;
+      margin: -2px !important;
+      border-radius: 0px !important;
+    }
+    .btn:hover{
+      background: white !important;
+      color:  #004080 !important;
+    }
+  }
+  .dataTables_wrapper .dataTables_paginate .paginate_button{
+
+
+
+    background-color:  #004080 !important;
+    color: white !important  ;
+    padding: 3px !important;
+
+    border-radius: 0px !important;
+    border: 1px solid white !important;
+    margin-right: -1px !important;
+    margin-left: -1px !important;
+    margin: 0px !important;
+
+  }
+  .dataTables_wrapper .dataTables_paginate .paginate_button.current{
+    background: #3070b0 !important;
+    color:white !important;
+  }
+  .dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+    color: #004080 !important;
+    background: white !important;
+  }
+
+  .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate{ color: white!important;}
 }

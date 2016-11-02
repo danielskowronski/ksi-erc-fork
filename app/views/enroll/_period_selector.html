@@ -30,10 +30,7 @@ function loadMembershipsByUid(uid){
     foundMemberships = data;
     $("#step2").html("")
     $.each( data, function( index, value ){
-      var feeState = "";
-      if (value.fee_paid) feeState="<span class='oplacona'>opłacona</span>";
-      else  feeState="<span class='nieoplacona'>nieopłacona</span>";
-      $("#step2").append("<li><a onClick='useMembership("+value.id+")'>"+getPeriodDescById(value.period_id)+" - ["+feeState+"]</a></li>")
+      $("#step2").append("<li><a onClick='useMembership("+value.id+")'>"+getPeriodDescById(value.period_id)+" - ["+value.fee_paid_html+"]</a></li>")
     })
   });
 }

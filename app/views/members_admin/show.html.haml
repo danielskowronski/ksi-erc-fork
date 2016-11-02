@@ -25,10 +25,8 @@
       %li
         = period.period.concat_year_and_info
         = " "
-        -if period.fee_paid
-          = raw("<span class='oplacona'>opłacona</span>")
-        -else
-          = raw("<span class='nieoplacona'>nieopłacona</span> ")
+        = raw(period.fee_paid_html)
+        -if !period.fee_paid
           = " "
           =link_to "[przyjmij składkę]", new_enroll_fee_path
         = " "

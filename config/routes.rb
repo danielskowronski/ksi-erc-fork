@@ -17,15 +17,14 @@ Rails.application.routes.draw do
   get '/book_keep_records/filter/:id', to: 'book_keep_records#filter', as: :book_keep_record_filter
 
   # members-memberships
-  resources :memberships
-  resources :comments
-  resources :periods
-  resources :roles
-  resources :members
   get '/members/generate_mailing', to: 'members#generate_mailing', as: :generate_mailing
   get '/memberships/filter/:id(/:exportable)', to: 'memberships#show_filtered', as: :memberships_show_filtered
   get '/memberships/by_user/:id', to: 'memberships#by_user', as: :memberships_by_user
   get '/memberships-stats', to: 'memberships#stats', as: :memberships_stats
+  resources :memberships
+  resources :comments
+  resources :periods
+  resources :roles
   resources :members
   resources :roles
   resources :periods
@@ -63,9 +62,12 @@ Rails.application.routes.draw do
   get '/enroll/lock', to: 'enroll#lock', as: :new_enroll_lock
   post '/enroll/lock', to: 'enroll#lock', as: :new_enroll_lock_post
 
-  # TODO: members-admin controller
-  get '/members-admin(/:mode)', to: 'pages#members_admin', as: :new_members
-  get '/members-admin/show/:id', to: 'pages#members_admin_show', as: :new_members_show
+  # members admin
+  get '/members-admin', to: 'members_admin#index', as: :new_members_admin_index
+  get '/members-admin/mailing', to: 'members_admin#mailing', as: :new_members_admin_mailing
+  get '/members-admin/current', to: 'members_admin#current', as: :new_members_admin_current
+  get '/members-admin/all', to: 'members_admin#all', as: :new_members_admin_all
+  get '/members-admin/show/:id', to: 'members_admin#show', as: :new_members_admin_show
 
   ### master
   root 'pages#index'

@@ -28,6 +28,14 @@ class Membership < ActiveRecord::Base
 
   validates :member_id, uniqueness: { scope: :period_id, :message =>  ' już opłacił składkę na ten okres!' }
 
+  def fee_paid_html
+    if fee_paid
+      "<span class='oplacona'>opłacona</span>"
+    else
+      "<span class='nieoplacona'>nieopłacona</span>"
+    end
+  end
+
   private
 
     def has_at_least_one_role
