@@ -44,6 +44,9 @@ class EnrollController < ApplicationController
 
     if request.post?
       membership_id = params[:membership][:id]
+      if membership_id.empty?
+        return
+      end
       @success2 = Membership.update(membership_id, :fee_paid=> true)
       errors = @success2.errors
       errors.full_messages.each do |msg|
@@ -74,6 +77,9 @@ class EnrollController < ApplicationController
 
     if request.post?
       @tshirt = TshirtIssue.new(tshirt_issue_params)
+      if tshirt_issue_params[:member_id]=="-1"
+        return
+      end
       @success = @tshirt.save
       errors = @tshirt.errors
       @message = ""

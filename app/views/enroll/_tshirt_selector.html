@@ -6,6 +6,8 @@ function useExistingMember(id){
     if (value.id==id){
       $("#selected").html(value.name+" "+value.surname+" ("+value.email+")");
       selected_uid = value.id;
+      $("#step3 [name='tshirt_issue[member_id]']").val(selected_uid)
+      
     }
   })
 }
@@ -15,7 +17,7 @@ $(function() {
   $.get( "/tshirt_definitions.json", function( data ) {
     foundTshirts = data;
     $.each( foundTshirts, function( index, value ){
-      $("#step2").append("<li><a onClick='useTshirt("+value.id+")'>"+getTshirtDescById(value.id)+"</a></li>")
+      $("#step2 ul").append("<li><a onClick='useTshirt("+value.id+")'>"+getTshirtDescById(value.id)+"</a></li>")
     });
   });
 })
@@ -42,7 +44,7 @@ function useTshirt(id){
   $("#selectedTshirt").html(getTshirtDescById(tshirt.id))
 }
 </script>
-<div id="step2"></div>
+<div id="step2"><ul></ul></div>
 <form method="post" id="step3" style="display:none" action="/enroll/tshirt">
   tshirt_issue[member_id]:<input type="text" name="tshirt_issue[member_id]" value="" /><br />
   tshirt_issue[tshirt_definition_id]:<input type="text" name="tshirt_issue[tshirt_definition_id]" value="" /><br />
