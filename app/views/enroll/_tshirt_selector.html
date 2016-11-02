@@ -1,0 +1,53 @@
+<script>
+
+var selected_uid = -1;
+function useExistingMember(id){
+  $.each( foundMembers, function( index, value ){
+    if (value.id==id){
+      $("#selected").html(value.name+" "+value.surname+" ("+value.email+")");
+      selected_uid = value.id;
+    }
+  })
+}
+
+var foundTshirts = null;
+$(function() {
+  $.get( "/tshirt_definitions.json", function( data ) {
+    foundTshirts = data;
+    $.each( foundTshirts, function( index, value ){
+      $("#step2").append("<li><a onClick='useTshirt("+value.id+")'>"+getTshirtDescById(value.id)+"</a></li>")
+    });
+  });
+})
+function getTshirtDescById(id){
+  var result = "?!?!?!";
+  $.each( foundTshirts, function( index, value ){
+    if (value.id == id) {
+      result = (value.name+" ("+value.produced+")");
+      return false;
+    }
+  });
+  return result;
+}
+
+function useTshirt(id){
+  var tshirt;
+  $.each( foundTshirts, function( index, value ){
+    if (value.id==id) tshirt=value;
+  });
+
+  $("#step3 [name='tshirt_issue[member_id]']").val(selected_uid)
+  $("#step3 [name='tshirt_issue[tshirt_definition_id]']").val(tshirt.id)
+
+  $("#selectedTshirt").html(getTshirtDescById(tshirt.id))
+}
+</script>
+<div id="step2"></div>
+<form method="post" id="step3" style="display:none">
+  tshirt_issue[member_id]:<input type="text" name="tshirt_issue[member_id]" value="" /><br />
+  tshirt_issue[tshirt_definition_id]:<input type="text" name="tshirt_issue[tshirt_definition_id]" value="" /><br />
+  <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+
+  <button>send</button>
+
+</form>

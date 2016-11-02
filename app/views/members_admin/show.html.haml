@@ -41,6 +41,6 @@
   %ul
     - @member_tshirts.each do |tshirt|
       %li
-        = tshirt.tshirt_definition.name + " ("+tshirt.tshirt_definition.produced+")"
+        = tshirt.tshirt_definition.name + " ("+tshirt.tshirt_definition.produced+"), wydana: "+tshirt.created_at.strftime("%F")
         = " "
         =link_to "[edytuj]", tshirt

@@ -42,12 +42,31 @@ class EnrollController < ApplicationController
       @success = @success2.errors.messages.empty?
 
       if @success
-        redirect_to new_members_show_url(@success2.member.id), :flash => { :success => "Pomyślnie przyjęto składkę" }
+        redirect_to new_members_admin_show_url(@success2.member.id), :flash => { :success => "Pomyślnie przyjęto składkę" }
       end
     end
   end
 
   def tshirt
+    @current_tshirt = Setting.current_tshirt
+
+    #for auto completing form with errors
+    @membership = Membership.new
+    @membership.member = Member.new
+
+    if request.post?
+      @tshirt = TshirtIssue.new(tshirt_issue_params)
+      @success = @tshirt.save
+      errors = @tshirt.errors
+      @message = ""
+      errors.full_messages.each do |msg|
+        @message+="<li>"+msg+"</li>"
+      end
+
+      if @success
+        redirect_to new_members_admin_show_url(@tshirt.member.id), :flash => { :success => "Pomyślnie wydano koszulkę" }
+      end
+    end
   end
 
   def lock
@@ -73,7 +92,7 @@ class EnrollController < ApplicationController
       @success = @success.errors.messages.empty?
 
       if @success
-        redirect_to new_members_show_url(member_id), :flash => { :success => "Pomyślnie dodano do zamka elektronicznego"}
+        redirect_to new_members_admin_show_url(member_id), :flash => { :success => "Pomyślnie dodano do zamka elektronicznego"}
       end
     end
   end
@@ -89,5 +108,9 @@ class EnrollController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def membership_params
       params.require(:membership).permit(:fee_paid, :tshirt, :member_id, { role_ids: [] }, :period_id, comment_attributes: :text, member_attributes: [:name, :surname, :email, :card_id])
+    end
+
+    def tshirt_issue_params
+      params.require(:tshirt_issue).permit(:member_id, :comment, :tshirt_definition_id)
     end
 end
