@@ -24,7 +24,7 @@ class EnrollController < ApplicationController
       end
 
       if @success
-        redirect_to new_members_show_url(@membership.member.id), :flash => { :success => "Pomyślnie zapisano do koła" }
+        redirect_to new_members_admin_show_url(@membership.member.id), :flash => { :success => "Pomyślnie zapisano do koła" }
       end
     end
   end

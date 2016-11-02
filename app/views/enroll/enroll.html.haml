@@ -3,17 +3,19 @@
     =raw("<div class='alert alert-danger'><strong>Wystąpił co najmniej jeden błąd!</strong><br />"+@message+"</div>")
 
 %h1
-  Odznacz opłacenie składki
+  Zapisywanie do koła
 
 %h3
-  1) Wybierz członka
+  1) Kolejny wpis czy nowy człowiek?
   %kbd#selected
+%h4
+  Zacznij wpisywać dane, jeśli system coś znajdzie kliknij w link po prawej, jeśli nie - dokończ uzupełnianie danych.
 = render 'member_selector'
 
 %h3
-  2) Wybierz składkę z listy do niego przypisanych
+  2) Wybierz typ składki/rok akademicki
   %kbd#selectedPeriod
-= render 'period_selector'
+= render 'enroll_selector'
 
 %h3
   3)
