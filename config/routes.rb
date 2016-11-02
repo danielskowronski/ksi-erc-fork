@@ -55,11 +55,11 @@ Rails.application.routes.draw do
   # entrollment wizards
   get '/enroll', to: 'enroll#enroll', as: :new_enroll
   post '/enroll', to: 'enroll#enroll', as: :new_enroll_post
-  get '/enroll/tshirt', to: 'enroll#tshirt', as: :new_enroll_tshirt
+  get '/enroll/tshirt(/:id)', to: 'enroll#tshirt', as: :new_enroll_tshirt
   post '/enroll/tshirt', to: 'enroll#tshirt', as: :new_enroll_tshirt_post
-  get '/enroll/fee', to: 'enroll#fee', as: :new_enroll_fee
+  get '/enroll/fee(/:id)', to: 'enroll#fee', as: :new_enroll_fee
   post '/enroll/fee', to: 'enroll#fee', as: :new_enroll_fee_post
-  get '/enroll/lock', to: 'enroll#lock', as: :new_enroll_lock
+  get '/enroll/lock(/:id)', to: 'enroll#lock', as: :new_enroll_lock
   post '/enroll/lock', to: 'enroll#lock', as: :new_enroll_lock_post
 
   # members admin

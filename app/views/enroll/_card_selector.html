@@ -16,7 +16,7 @@ function updateLock(id){
 
 }
 </script>
-<form method="post" id="step3" style="display:none">
+<form method="post" id="step3" style="display:none" action="/enroll/lock">
   member[id]:<input type="text" name="member[id]" value="" /><br />
   member[card_id]:<input type="text" name="member[card_id]" value="" /><br />
   <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />

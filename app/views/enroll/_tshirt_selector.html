@@ -43,7 +43,7 @@ function useTshirt(id){
 }
 </script>
 <div id="step2"></div>
-<form method="post" id="step3" style="display:none">
+<form method="post" id="step3" style="display:none" action="/enroll/tshirt">
   tshirt_issue[member_id]:<input type="text" name="tshirt_issue[member_id]" value="" /><br />
   tshirt_issue[tshirt_definition_id]:<input type="text" name="tshirt_issue[tshirt_definition_id]" value="" /><br />
   <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />

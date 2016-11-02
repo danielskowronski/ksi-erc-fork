@@ -11,7 +11,7 @@
   %li
     = "ID do zamka: "
     -if @member.card_id.nil?
-      =link_to "[dodaj!]", new_enroll_lock_path
+      =link_to "[dodaj!]", new_enroll_lock_path(@member.id)
     -else
       %kbd
         = @member.card_id
@@ -28,7 +28,7 @@
         = raw(period.fee_paid_html)
         -if !period.fee_paid
           = " "
-          =link_to "[przyjmij składkę]", new_enroll_fee_path
+          =link_to "[przyjmij składkę]", new_enroll_fee_path(@member.id)
         = " "
         =link_to "[edytuj]", period
         %ul

@@ -9,6 +9,8 @@ class EnrollController < ApplicationController
     @default_role   = Setting.default_role
     @current_tshirt = Setting.current_tshirt
 
+    @member = Member.new
+
     #for auto completing form with errors
     @membership = Membership.new
     @membership.member = Member.new
@@ -32,6 +34,14 @@ class EnrollController < ApplicationController
   def fee
     @default_period = Setting.default_period
 
+    if !params[:id].nil?
+      @member = Member.where(:id=>params[:id]).first
+      @autoload="onSearchTermChanged();useExistingMember("+@member.id.to_s+");"
+    else
+      @member = Member.new
+      @autoload=""
+    end
+
     if request.post?
       membership_id = params[:membership][:id]
       @success2 = Membership.update(membership_id, :fee_paid=> true)
@@ -49,6 +59,14 @@ class EnrollController < ApplicationController
 
   def tshirt
     @current_tshirt = Setting.current_tshirt
+
+    if !params[:id].nil?
+      @member = Member.where(:id=>params[:id]).first
+      @autoload="onSearchTermChanged();useExistingMember("+@member.id.to_s+");"
+    else
+      @member = Member.new
+      @autoload=""
+    end
 
     #for auto completing form with errors
     @membership = Membership.new
@@ -72,6 +90,14 @@ class EnrollController < ApplicationController
   def lock
     File.open('tmp/last_card_id.txt', 'r') do |f|
       @last_card_id = f.gets.strip
+    end
+
+    if !params[:id].nil?
+      @member = Member.where(:id=>params[:id]).first
+      @autoload="onSearchTermChanged();useExistingMember("+@member.id.to_s+");"
+    else
+      @member = Member.new
+      @autoload=""
     end
 
     @count = Member.where(:card_id=>@last_card_id).count

@@ -11,6 +11,7 @@
   var foundMembers = null;
   $.get( "/members.json", function( data ) {
     foundMembers = data;
+    <%= @autoload %>
   });
 
   $(function() {
@@ -48,9 +49,9 @@
 <div class="col-md-6">
   <form action="none" id="step1">
     <table class="formtable">
-      <tr><td class="left">Imię</td><td class="right"><input id="step1_name" style="text" width=32 /></td></tr>
-      <tr><td class="left">Nazwisko</td><td class="right"><input id="step1_surname" style="text" width=32 /></td></tr>
-      <tr><td class="left">Email</td><td class="right"><input id="step1_email" style="text" width=32/></td></tr>
+      <tr><td class="left">Imię</td><td class="right"><input id="step1_name" style="text" width=32 value="<%= @member.name %>"/></td></tr>
+      <tr><td class="left">Nazwisko</td><td class="right"><input id="step1_surname" style="text" width=32 value="<%= @member.surname %>"/></td></tr>
+      <tr><td class="left">Email</td><td class="right"><input id="step1_email" style="text" width=32 value="<%= @member.email %>"/></td></tr>
     </table>
   </form>
 </div><div class="col-md-6">
